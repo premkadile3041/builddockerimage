@@ -10,3 +10,4 @@ workflows:
           repo: "dockertest"
           region: us-east-1
           tag: "cirledockerimagetest"
+
