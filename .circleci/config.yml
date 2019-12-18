@@ -10,3 +10,4 @@ workflows:
           region: us-east-1
           repo: dockertest
           tag: 'latest,myECRRepoTag'
+
