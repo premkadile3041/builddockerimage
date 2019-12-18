@@ -1,0 +1,12 @@
+orbs:
+  aws-ecr: circleci/aws-ecr@x.y.z
+version: 2.1
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          account-url: 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest
+          dockerfile: Dockerfile
+          region: us-east-1
+          repo: dockertest
+          tag: 'latest,myECRRepoTag'
