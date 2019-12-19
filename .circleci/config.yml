@@ -39,10 +39,14 @@ jobs:
         command: $(aws ecr get-login --no-include-email --region us-east-1 )
     - run:
         name: Build docker image
-        command: docker build -t 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest:circleci .
+        command: docker build -t 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest:circleci2 .
     - run:
         name: Push image to Amazon ECR
-        command: docker push 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest:circleci
+        command: docker push 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest:circleci2
+    - run: 
+        name: Image scanning in ECR 
+        command:  aws ecr put-image-scanning-configuration --repository-name dockertest --image-scanning-configuration scanOnPush=true --region us-east-1
+ 
 workflows:
   build-and-deploy:
     jobs:
