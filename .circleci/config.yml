@@ -42,10 +42,10 @@ jobs:
         command: docker build -t 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest:circleci2 .
     - run:
         name: Push image to Amazon ECR
-        command: docker push 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest:circleci3
+        command: docker push 789363386984.dkr.ecr.us-east-1.amazonaws.com/dockertest:circleciscaning
     - run: 
         name: Image scanning in ECR 
-        command:  aws ecr start-image-scan --repository-name dockertest --image-id imageTag=circlci3 --region us-east-1
+        command:  aws ecr start-image-scan --repository-name dockertest --image-id imageTag=circlciscaning --region us-east-1
  
 workflows:
   build-and-deploy:
