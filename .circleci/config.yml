@@ -23,6 +23,8 @@ jobs:
               fi
             fi
           fi
+          Id=$(aws ssm get-parameters --names Account_Number --with-decryption)
+          echo $Id
     - run:
         name: Configure cli credentials
         command: |
@@ -44,7 +46,7 @@ jobs:
           docker build -t $Id.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmenv .
     - run:
         name: Push image to Amazon ECR
-        command: docker push $Id.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmscan
+        command: docker push $Id.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmsenv
     - run: 
         name: Image scanning in ECR 
         command:  aws ecr start-image-scan --repository-name dockertest --image-id imageTag=circlciscaning --region us-east-1
