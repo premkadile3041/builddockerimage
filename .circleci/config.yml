@@ -13,4 +13,3 @@ workflows:
     jobs:
       - my-job
   version: 2
-  
