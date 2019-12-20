@@ -1,5 +1,14 @@
 
-version: 2
+version: 2.1
+jobs:
+  my-job:
+    docker:
+    - image: circleci/python:3-stretch-browsers
+    steps:
+      - aws-parameter-store/load
+      - checkout
+orbs:
+  aws-parameter-store: circleci/aws-parameter-store@1.0.0
 jobs:
   aws-ecr/build_and_push_image:
     docker:
@@ -42,12 +51,10 @@ jobs:
     - run:
         name: Build docker image
         command: |
-          Id=$(aws ssm get-parameters --names Account_Number --with-decryption)
-          echo "export AcNumber=$Id" >> $BASH_ENV
-          docker build -t ${BASH_ENV}.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmenv .
+          docker build -t ${Account_Number}.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmenv .
     - run:
         name: Push image to Amazon ECR
-        command: docker push $Id.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmsenv
+        command: docker push ${Account_Number}.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmsenv
     - run: 
         name: Image scanning in ECR 
         command:  aws ecr start-image-scan --repository-name dockertest --image-id imageTag=circlciscaning --region us-east-1
@@ -56,4 +63,7 @@ workflows:
   build-and-deploy:
     jobs:
     - aws-ecr/build_and_push_image
-  version: 2
+  build_and_test:
+    jobs:
+      - my-job 
+version: 2.1
