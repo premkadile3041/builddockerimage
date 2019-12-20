@@ -65,4 +65,3 @@ workflows:
   build_and_test:
     jobs:
       - my-job 
-version: 2.1
