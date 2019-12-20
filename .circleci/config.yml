@@ -44,7 +44,7 @@ jobs:
         command: |
           Id=$(aws ssm get-parameters --names Account_Number --with-decryption)
           echo "export AcNumber=$Id" >> $BASH_ENV
-          docker build -t $BASH_ENV.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmenv .
+          docker build -t ${BASH_ENV}.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmenv .
     - run:
         name: Push image to Amazon ECR
         command: docker push $Id.dkr.ecr.us-east-1.amazonaws.com/dockertest:ssmsenv
