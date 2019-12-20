@@ -9,7 +9,6 @@ jobs:
       - checkout
 orbs:
   aws-parameter-store: circleci/aws-parameter-store@1.0.0
-jobs:
   aws-ecr/build_and_push_image:
     docker:
     - image: circleci/python:3-stretch-browsers
